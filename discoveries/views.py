@@ -5,6 +5,7 @@ from rest_framework.exceptions import NotFound
 
 from .models import Discovery
 from .serializers.common import DiscoverySerializer
+from .serializers.populated import PopulatedDiscoverSerializer
 
 class DiscoveryListView(APIView):
     def get(self, _request):
@@ -34,7 +35,7 @@ class DiscoveryDetailView(APIView):
             
     def get(self, _request, pk):
         discovery = self.get_discovery(pk=pk) 
-        serialized_discovery = DiscoverySerializer(discovery)
+        serialized_discovery = PopulatedDiscoverSerializer(discovery)
         return Response(serialized_discovery.data)
 
     def delete(self, _request, pk):
