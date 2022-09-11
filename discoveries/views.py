@@ -7,7 +7,10 @@ from .models import Discovery
 from .serializers.common import DiscoverySerializer
 from .serializers.populated import PopulatedDiscoverSerializer
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 class DiscoveryListView(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, _request):
       discoveries = Discovery.objects.all()
       print('discoveries ->', discoveries)

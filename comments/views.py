@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from .serializers.common import CommentSerializer
 from .models import Comment
+
 class CommentListView(APIView):
   def post(self, request):
     comment_to_create = CommentSerializer(data=request.data)
