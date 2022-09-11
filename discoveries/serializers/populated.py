@@ -1,5 +1,7 @@
 from .common import DiscoverySerializer
-from comments.serializers.common import CommentSerializer
+from comments.serializers.populated import PopulatedCommentSerializer
+from categories.serializers.populated import PopulatedCategorySerializer
 
 class PopulatedDiscoverSerializer(DiscoverySerializer):
-    comments = CommentSerializer(many=True)
+    comments = PopulatedCommentSerializer(many=True)
+    categories = PopulatedCategorySerializer(many=True)

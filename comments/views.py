@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, PermissionDenied
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .serializers.common import CommentSerializer
 from .models import Comment
 
@@ -16,12 +17,16 @@ class CommentListView(APIView):
       return Response(e.__dict__ if e.__dict__ else str(e), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class CommentDetailView(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly, )
   def get_comment(self, pk):
     try:
       return Comment.objects.get(pk=pk)
     except Comment.DoesNotExist:
       raise NotFound("Comment not found")
-  def delete(self, _request, pk):
+  def delete(self, request, pk):
+    comment_to_delete = self.get_comment(pk)
+    if comment_to_delete.owner != request.user or request.user.is_superuser:
+      raise PermissionDenied("Not Authorised to Delete")
     comment_to_delete = self.get_comment(pk)
     comment_to_delete.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
