@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('discoveries/', include('discoveries.urls')),
     path('comments/', include ('comments.urls')),
+    path('tags/', include ('tags.urls')),
     path('auth/', include('jwt_auth.urls'))
 ]
