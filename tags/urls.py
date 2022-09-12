@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import TagListView, TagDetailView
+from .views import TagListView
 
 urlpatterns = [
-  path('', TagListView.as_view()),
-  path('<int:pk>/', TagDetailView.as_view())  
+  path('', TagListView.as_view())
 ]

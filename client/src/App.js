@@ -7,7 +7,9 @@ import Login from './components/login'
 import Register from './components/register'
 import Profile from './components/profile'
 import NavBar from './components/navbar'
+import AddDiscovery from './components/crudDiscovery/AddDiscovery'
 import DiscoverySingle from './components/DiscoverySingle'
+import ReadDiscovery from './components/crudDiscovery/ReadDiscovery'
 
 const App = () => {
   useEffect(() => {
@@ -26,9 +28,10 @@ const App = () => {
           <Routes>
             {/* <Route path="/" element={<Homepage />} /> */}
             <Route path="/discoveries/" element={<Discoveries></Discoveries>}></Route>
-            <Route path="/discoveries/:discoveryId" element={<DiscoverySingle />} />
+            <Route path="/discoveries/:discoveryId" element={<ReadDiscovery />} />
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/register" element={<Register></Register>}></Route>
+            <Route path="/AddDiscovery" element={<AddDiscovery></AddDiscovery>}></Route>
             <Route path="/profile" element={<Profile></Profile>}></Route>
           </Routes>
         </BrowserRouter>

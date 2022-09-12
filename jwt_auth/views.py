@@ -19,6 +19,16 @@ class RegisterView(APIView):
     try:
       user_to_create.is_valid(True)
       user_to_create.save()
+      dtime = datetime.now() + timedelta(hours=2)
+      token = jwt.encode(
+        {
+          "sub":user_to_create.id,
+          "exp":int(dtime.strftime('%s'))
+        },
+        settings.SECRET_KEY,
+        "HS256"
+      )
+      print(token)
       return Response(user_to_create.data, status=status.HTTP_202_ACCEPTED)
     except Exception as error:
       print(error.__dict__)

@@ -10,11 +10,10 @@ from .serializers.populated import PopulatedDiscoverSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class DiscoveryListView(APIView):
-    permission_classes = (IsAuthenticatedOrReadOnly,)
     def get(self, _request):
       discoveries = Discovery.objects.all()
       print('discoveries ->', discoveries)
-      serialized_discoveries = PopulatedDiscoverSerializer(discoveries, many=True)
+      serialized_discoveries = DiscoverySerializer(discoveries, many=True)
       return Response(serialized_discoveries.data, status=status.HTTP_200_OK)
 
     def post(self, request):

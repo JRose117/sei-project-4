@@ -15,3 +15,6 @@ class Comment(models.Model):
       related_name='comments',
       on_delete=models.CASCADE
     )
+
+    def __str__(self):
+      return f"{self.discovery} - {self.created_at}"

@@ -16,22 +16,22 @@ const Register = () => {
     username: '',
     password: '',
     password_confirmation: '',
-    user_tags: [],
   })
   const [error, setError ] = useState('')
 
   const handleChange = (event) => {
-    const newObj = { ...formData, [event.target.name]: event.target.value, user_tags: [] }
+    const newObj = { ...formData, [event.target.name]: event.target.value }
     setFormData(newObj)
     setError('')
   }
+
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const { data } = await axios.post('/api/auth/register/', formData)
-      navigate('/login')
-      // console.log('should navigate to log in')
+      console.log('should navigate to log in')
+      navigate('/')
     } catch (err) {
       console.log(err)
     }

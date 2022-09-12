@@ -1,20 +1,11 @@
 from pickle import FALSE
 from django.db import models
-# Create your models here.
-class Tag(models.Model):
-    tagged = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    tagged_by = models.ForeignKey(
-      'jwt_auth.User',
-      related_name='tags',
-      on_delete=models.CASCADE,
-    )
-    discoveries = models.ManyToManyField(
-      "discoveries.Discovery",
-      related_name="tags"
-    )
+# Create your models here.    
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-      return f"{self.tagged} - {self.created_at}"
+        return f"{self.name}"
 
 
