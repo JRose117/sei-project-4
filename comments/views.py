@@ -7,6 +7,12 @@ from .serializers.common import CommentSerializer
 from .models import Comment
 
 class CommentListView(APIView):
+
+  def get(self, _request):
+      comments = Comment.objects.all()
+      serialized_comments = CommentSerializer(comments, many=True)
+      return Response(serialized_comments.data, status=status.HTTP_200_OK)
+
   def post(self, request):
     comment_to_create = CommentSerializer(data=request.data)
     try:
@@ -23,6 +29,18 @@ class CommentDetailView(APIView):
       return Comment.objects.get(pk=pk)
     except Comment.DoesNotExist:
       raise NotFound("Comment not found")
+    
+  def put(self, request, pk):
+    comment_to_update = self.get_comment(pk=pk) 
+    updated_comment = CommentSerializer(comment_to_update, data=request.data) 
+    try:
+        updated_comment.is_valid(True) 
+        updated_comment.save()
+        return Response(updated_comment.data, status=status.HTTP_202_ACCEPTED)
+    except Exception as error:
+        print(error)
+        return Response(str(error), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
   def delete(self, request, pk):
     comment_to_delete = self.get_comment(pk)
     if comment_to_delete.owner != request.user or request.user.is_superuser:
@@ -30,3 +48,5 @@ class CommentDetailView(APIView):
     comment_to_delete = self.get_comment(pk)
     comment_to_delete.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+  
