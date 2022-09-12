@@ -14,6 +14,7 @@ class TagListView(APIView):
         try:
             tag_to_add.is_valid(True)
             tag_to_add.save()
+            
             return Response(tag_to_add.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             print('ERROR')
@@ -27,7 +28,7 @@ class TagListView(APIView):
 
 class TagDetailView(APIView):
 
-    def get(self, pk):
+    def get_tag(self, pk):
         try:
             return Tag.objects.get(pk=pk)
         except Tag.DoesNotExist:

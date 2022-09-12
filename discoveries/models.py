@@ -4,7 +4,7 @@ from django.db import models
 class Discovery(models.Model):
     rec_name = models.CharField(max_length=100)
     rec_location = models.CharField(max_length=50, blank=True, default='')
-    rec_image = models.CharField(max_length=100, blank=True, default='')
+    rec_image = models.ImageField(upload_to='images/', blank=True, default='')
     # created_at = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField(
       "categories.Category", 

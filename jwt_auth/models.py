@@ -7,5 +7,6 @@ class User(AbstractUser):
     email = models.CharField(max_length = 100, unique=True)
     user_tags = models.ManyToManyField(
       "tags.Tag", 
-      related_name="users"
+      related_name="users",
+      blank=True, default=[]
     )
