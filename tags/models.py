@@ -4,12 +4,11 @@ from django.db import models
 class Tag(models.Model):
     tagged = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    # tagged_by = models.ForeignKey(
-    #   'jwt_auth.User',
-    #   related_name='tags',
-    #   on_delete=models.CASCADE,
-    #   default = '1'
-    # )
+    tagged_by = models.ForeignKey(
+      'jwt_auth.User',
+      related_name='tags',
+      on_delete=models.CASCADE,
+    )
     discoveries = models.ManyToManyField(
       "discoveries.Discovery",
       related_name="tags"

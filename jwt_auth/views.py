@@ -8,6 +8,7 @@ import jwt
 from datetime import datetime, timedelta
 from django.conf import settings
 from .serializers.common import UserSerializer
+from .serializers.populated import PopulatedUserSerializer
 
 
 # Create your views here.
@@ -44,3 +45,22 @@ class LoginView(APIView):
       "HS256"
     ) 
     return Response({"token": token, "message": "You are now logged in"})
+
+class ProfileDetailView(APIView):
+
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise PermissionDenied(detail="Invalid Credentials")
+
+    def get(self, _request, pk):
+        user = self.get_user(pk=pk)
+        serialized_user = PopulatedUserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+
+class ProfileListView(APIView):
+    def get(self, _request):
+        users = User.objects.all()
+        serialized_users = UserSerializer(users, many=True)
+        return Response(serialized_users.data, status=status.HTTP_200_OK)

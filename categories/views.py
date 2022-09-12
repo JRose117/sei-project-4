@@ -34,7 +34,7 @@ class CategoryDetailView(APIView):
   def get(self, _request, pk):
     category = self.get_category(pk=pk) 
     serialized_category = PopulatedCategorySerializer(category)
-    return Response(serialized_category.data)
+    return Response(serialized_category.data, status=status.HTTP_200_OK)
 
   def put(self, request, pk):
     category_to_update = self.get_category(pk=pk) 
