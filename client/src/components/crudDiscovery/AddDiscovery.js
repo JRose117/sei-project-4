@@ -21,7 +21,6 @@ const AddDiscovery = () => {
     discName: '',
     discDesc: '',
     categories: [],
-    // image
   })
 
   const [categoriesMap, setCategoriesMap] = useState([])
@@ -29,6 +28,7 @@ const AddDiscovery = () => {
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get('/api/categories/')
+      console.log('data - line32', data)
       setCategoriesMap(data)
     }
     getData()
@@ -64,7 +64,7 @@ const AddDiscovery = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h1>{'Add Discovery'}</h1>
-      {errors && <p className='text-danger'>{JSON.stringify(errors)}</p>}
+      {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
       <label htmlFor='discName'>Name</label>
       <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
       {errors.name && <p className='text-danger'>{errors.discName}</p>}
@@ -75,13 +75,13 @@ const AddDiscovery = () => {
       {/* categories */}
       <label htmlFor='categories'>categories</label>
       <Select
-        categoriesMap={categoriesMap.map((category) => ({
+        options={categoriesMap.map((category) => ({
           id: category.id,
           value: category.id,
           label: category.name,
         }))}
         isMulti
-        name="tags"
+        name="categories"
         onChange={handleMultiEnter}
       />
       {errors.categories && <p className='text-danger'>{errors.categories}</p>}

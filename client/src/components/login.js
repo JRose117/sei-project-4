@@ -35,6 +35,8 @@ const Login = () => {
       const { token } = data
       window.localStorage.setItem('token', token)
       window.localStorage.setItem('username', userData.username)
+      console.log('worked')
+      navigate('/')
     } catch (error) {
       setIsError(true)
       setErrorMessage(error.response.data.message)

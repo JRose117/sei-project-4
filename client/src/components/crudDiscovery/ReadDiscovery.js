@@ -17,21 +17,32 @@ const ReadDiscovery = () => {
   const [ discovery, setDiscovery ] = useState(null)
   const [ errors, setErrors ] = useState(false)
 
-  const { id } = useParams()
-
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/discoveries/${id}/`)
+        const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
         setDiscovery(data)
       } catch (err) {
         setErrors(true)
       }
     }
     getData()
-  }, [id])
+  }, [discoveryId])
 
-  console.log(discovery)
+  const alreadyLiked = async () => {
+    try {
+      await axios.post('/api/tag/',
+        {
+          discovery: discovery.id,
+          going: true,
+        },
+        { headers: { Authorization: `Bearer ${getToken()}` } }
+      )
+      // await getDiscovery()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   // ! JSX
   return (
