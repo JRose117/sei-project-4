@@ -9,3 +9,6 @@ class PopulatedDiscoverSerializer(DiscoverySerializer):
     comments = PopulatedCommentSerializer(many=True)
     categories = PopulatedCategorySerializer(many=True)
     owner = UserSerializer()
+
+class PopulatedCommentDiscoverySerializer(DiscoverySerializer):
+    comments = PopulatedCommentSerializer
