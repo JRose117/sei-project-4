@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-// Import Helpers
 import { getPayload, getToken, userIsOwner } from '../auth'
 
-// Import from bootstrap
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -31,12 +29,13 @@ const ReadDiscovery = () => {
     getData()
   }, [discoveryId])
 
+  console.log(discovery)
+
   // ! JSX
   return (
     <Container as="main">
       <Row>
         { discovery ? 
-          // If Discovery is truthy, then our API call was successful as data has been added to the Discovery state
           <>
             <h1>{discovery.discName}</h1>
             <Col md="6">
@@ -46,9 +45,10 @@ const ReadDiscovery = () => {
               {/* Description */}
               <h2>Description</h2>
               <p>{discovery.discDesc}</p>
+              <p>{discovery.comments.length > 0 && discovery.comments[0].text}</p>
               <hr />
               {/* Link back to all discoverys */}
-              <Link to="/discovery" className='btn dark'>Back to all discovery</Link>
+              <Link to="/discoveries/" className='btn dark'>Back to all discovery</Link>
             </Col>
           </>
           :

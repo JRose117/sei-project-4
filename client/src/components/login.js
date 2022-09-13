@@ -35,7 +35,6 @@ const Login = () => {
       const { token } = data
       window.localStorage.setItem('token', token)
       window.localStorage.setItem('username', userData.username)
-      navigate('/profile')
     } catch (error) {
       setIsError(true)
       setErrorMessage(error.response.data.message)

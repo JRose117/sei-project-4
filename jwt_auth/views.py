@@ -8,7 +8,7 @@ import jwt
 from datetime import datetime, timedelta
 from django.conf import settings
 from .serializers.common import UserSerializer
-from .serializers.populated import PopulatedUserSerializer
+# from .serializers.populated import PopulatedUserSerializer
 
 
 # Create your views here.
@@ -16,23 +16,17 @@ from .serializers.populated import PopulatedUserSerializer
 class RegisterView(APIView):
   def post(self, request):
     user_to_create = UserSerializer(data=request.data)
-    try:
-      user_to_create.is_valid(True)
-      user_to_create.save()
-      dtime = datetime.now() + timedelta(hours=2)
-      token = jwt.encode(
-        {
-          "sub":user_to_create.id,
-          "exp":int(dtime.strftime('%s'))
-        },
-        settings.SECRET_KEY,
-        "HS256"
-      )
-      print(token)
-      return Response(user_to_create.data, status=status.HTTP_202_ACCEPTED)
-    except Exception as error:
-      print(error.__dict__)
-      return Response(error.__dict__ if error.__dict__ else str(error), status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    if user_to_create.is_valid():
+        user = user_to_create.save()
+        dt = datetime.now() + timedelta(days=7)
+        token = jwt.encode(
+            {'sub': user.id, 'exp': int(dt.strftime('%s'))},
+            settings.SECRET_KEY,
+            algorithm='HS256'
+        )
+        print('TOKEN', token)
+        return Response({'token': token, 'message': 'Registration Successful'}, status=status.HTTP_202_ACCEPTED)
+    return Response(user_to_create.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class LoginView(APIView):
 
@@ -66,7 +60,7 @@ class ProfileDetailView(APIView):
 
     def get(self, _request, pk):
         user = self.get_user(pk=pk)
-        serialized_user = PopulatedUserSerializer(user)
+        serialized_user = UserSerializer(user)
         return Response(serialized_user.data, status=status.HTTP_200_OK)
 
 class ProfileListView(APIView):

@@ -16,19 +16,17 @@ const AddDiscovery = () => {
     'discDesc': '',
     'categories': [],
     // image
-    'tags': [],
-    'owner': '',
   })
   
   const [ errors, setErrors ] = useState({
-    name: '',
-    origin: '',
-    description: '',
-    image: '',
-    message: '',
+    discName: '',
+    discDesc: '',
+    categories: [],
+    // image
   })
 
   const handleSubmit = async (event) => {
+    console.log(formData)
     event.preventDefault()
     try {
       const { data } = await axios.post('api/discoveries/', formData, {
@@ -54,7 +52,7 @@ const AddDiscovery = () => {
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
-          title="Add Discovery"
+          title="Add "
         />
       </Container>
     </main>

@@ -18,6 +18,7 @@ class DiscoveryListView(APIView):
 
     def post(self, request):
       print('request data ->', request.data)
+      request.data['owner'] = request.user.id
       discovery_to_add = DiscoverySerializer(data=request.data)
       try:
           discovery_to_add.is_valid(True)

@@ -32,7 +32,7 @@ const Discoveries = () => {
             console.log(discovery)
             return (
               <Col key={id} md="6" lg="4" className='mb-4'>
-                <Link to={`/discovery/${id}`}>
+                <Link to={`/discoveries/${id}/`}>
                   <Card>
                     <Card.Img variant='top' src={discImage}></Card.Img>
                     <Card.Body className='bg-light'>

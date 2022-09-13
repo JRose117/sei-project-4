@@ -8,5 +8,4 @@ from jwt_auth.serializers.common import UserSerializer
 class PopulatedDiscoverSerializer(DiscoverySerializer):
     comments = PopulatedCommentSerializer(many=True)
     categories = PopulatedCategorySerializer(many=True)
-    tags = TagSerializer(many=True)
     owner = UserSerializer()
