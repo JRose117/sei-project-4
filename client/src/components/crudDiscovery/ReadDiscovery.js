@@ -17,17 +17,19 @@ const ReadDiscovery = () => {
   const [ discovery, setDiscovery ] = useState(null)
   const [ errors, setErrors ] = useState(false)
 
+  const { id } = useParams()
+
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
+        const { data } = await axios.get(`/api/discoveries/${id}/`)
         setDiscovery(data)
       } catch (err) {
         setErrors(true)
       }
     }
     getData()
-  }, [discoveryId])
+  }, [id])
 
   console.log(discovery)
 

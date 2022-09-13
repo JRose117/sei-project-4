@@ -1,30 +1,30 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import React from 'react'
+import Select from 'react-select'
 import { getToken } from '../auth'
 
 import Container from 'react-bootstrap/Container'
-import DiscoveryForm from './DiscoveryForm'
 
 const AddDiscovery = () => {
 
   const navigate = useNavigate()
-  const [ formData, setFormData ] = useState({
-    discName: '',
-    discDesc: '',
-    categories: [],
-    // image
-  })
-  
-  const [ errors, setErrors ] = useState({
+  const [formData, setFormData] = useState({
     discName: '',
     discDesc: '',
     categories: [],
     // image
   })
 
-  const [ categoriesMap, setCategoriesMap ] = useState([])
+  const [errors, setErrors] = useState({
+    discName: '',
+    discDesc: '',
+    categories: [],
+    // image
+  })
+
+  const [categoriesMap, setCategoriesMap] = useState([])
 
   useEffect(() => {
     const getData = async () => {
@@ -34,6 +34,10 @@ const AddDiscovery = () => {
     getData()
   }, [])
 
+  const handleMultiEnter = (categories) => {
+    console.log(categories)
+    setFormData({ ...formData, categories: categories.map((category) => category.id) })
+  }
   const handleSubmit = async (event) => {
     console.log(formData)
     event.preventDefault()
@@ -59,30 +63,34 @@ const AddDiscovery = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>{'AddDiscovery'}</h1>
-      {/* Population error */}
-      { errors && <p className='text-danger'>{errors}</p>}
-      {/* Name */}
+      <h1>{'Add Discovery'}</h1>
+      {errors && <p className='text-danger'>{JSON.stringify(errors)}</p>}
       <label htmlFor='discName'>Name</label>
       <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
-      { errors.name && <p className='text-danger'>{errors.discName}</p> }
+      {errors.name && <p className='text-danger'>{errors.discName}</p>}
       {/* discDesc */}
       <label htmlFor='discDesc'>Description</label>
       <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
-      { errors.discDesc && <p className='text-danger'>{errors.discDesc}</p> }
+      {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
       {/* categories */}
       <label htmlFor='categories'>categories</label>
-      {categoriesMap.map((option)=> (
-        <p key={option.id}>{option.name}</p> 
-      ))}
-      <textarea name='categories' placeholder='categories' value={formData.categories} onChange={handleChange}></textarea>
-      { errors.categories && <p className='text-danger'>{errors.categories}</p> }
+      <Select
+        categoriesMap={categoriesMap.map((category) => ({
+          id: category.id,
+          value: category.id,
+          label: category.name,
+        }))}
+        isMulti
+        name="tags"
+        onChange={handleMultiEnter}
+      />
+      {errors.categories && <p className='text-danger'>{errors.categories}</p>}
       {/* Image */}
       {/* <label htmlFor='image'>Image</label>
       <input type='text' name='image' placeholder='Image' value={formData.image} onChange={handleChange} />
       { errors.image && <p className='text-danger'>{errors.image}</p> } */}
       {/* Non field Errors */}
-      { errors.message && <p className='text-danger'>{errors.message}</p> }
+      {errors.message && <p className='text-danger'>{errors.message}</p>}
       {/* Submit */}
       <input type='submit' value={'addDiscovery'} className='btn dark' />
     </form>
