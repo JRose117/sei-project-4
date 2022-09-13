@@ -4,9 +4,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
+    username = models.CharField(max_length = 50, unique=True) 
     email = models.CharField(max_length = 100, unique=True)
-    user_tags = models.ManyToManyField(
-      "tags.Tag", 
-      related_name="users",
-      blank=True, default=[]
-    )
+    profilePicture = models.CharField(max_length=200, blank=True, default = '')
+    

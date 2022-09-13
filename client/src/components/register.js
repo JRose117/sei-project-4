@@ -42,9 +42,9 @@ const Register = () => {
         <Row className="form-container">
           <form onSubmit={handleSubmit}>
             <h1>Register</h1>
-            {/* Username */}
-            <label htmlFor="username">Username</label>
-            <input onChange={handleChange} type="text" name="username" placeholder="Username" value={formData.username} />
+            {/* username */}
+            <label htmlFor="username">username</label>
+            <input onChange={handleChange} type="text" name="username" placeholder="username" value={formData.username} />
             {/* Email */}
             <label htmlFor="email">Email</label>
             <input onChange={handleChange} type="email" name="email" placeholder='Email' value={formData.email} />
