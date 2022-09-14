@@ -35,6 +35,7 @@ const Register = () => {
       console.log(err)
     }
   }
+  
   return (
     <main className='formPage'>
       <Container>

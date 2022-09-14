@@ -19,7 +19,6 @@ const NavBar = () => {
   return (
     <Navbar expand='md'>
       <Container as='section'>
-        <Navbar.Toggle aria-controls='basic-navbar-nav'></Navbar.Toggle>
         <Navbar.Collapse id='basic-navbar-nav' className='justify-content-end'>
           <Nav.Link as={Link} to='/discoveries/'>discoveries</Nav.Link>
           {authUser()

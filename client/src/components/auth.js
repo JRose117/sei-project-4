@@ -19,3 +19,14 @@ export const authUser = () => {
   const currentTime = Math.round(Date.now() / 1000)
   return currentTime < payload.exp
 }
+
+export const getIdFromUser = () => {
+  const payload = getPayload()
+  return payload && payload.sub
+}
+
+export const userIsOwner = (discovery) => {
+  const payload = getPayload()
+  if (!payload) return
+  return payload.sub === discovery.owner.id
+}

@@ -10,6 +10,7 @@ import NavBar from './components/navbar'
 import AddDiscovery from './components/crudDiscovery/AddDiscovery'
 import DiscoverySingle from './components/DiscoverySingle'
 import ReadDiscovery from './components/crudDiscovery/ReadDiscovery'
+import UpdateDiscovery from './components/crudDiscovery/UpdateDiscovery'
 
 const App = () => {
   useEffect(() => {
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/register" element={<Register></Register>}></Route>
             <Route path="/AddDiscovery" element={<AddDiscovery></AddDiscovery>}></Route>
+            <Route path="/UpdateDiscovery/:discoveryId/" element={<UpdateDiscovery></UpdateDiscovery>}></Route>
             <Route path="/profile" element={<Profile></Profile>}></Route>
           </Routes>
         </BrowserRouter>

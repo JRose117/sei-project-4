@@ -1,0 +1,11 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg;
+  .hero-container{
+    background-color: $overlay;
+    padding: 30px;
+    border-radius: 8px;
+  }
+}
