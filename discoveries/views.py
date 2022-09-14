@@ -47,6 +47,7 @@ class DiscoveryDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
     def put(self, request, pk):
+        request.data['owner'] = request.user.id
         discovery_to_update = self.get_discovery(pk=pk) 
         updated_discovery = DiscoverySerializer(discovery_to_update, data=request.data) 
         try:

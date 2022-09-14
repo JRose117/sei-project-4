@@ -17,6 +17,20 @@ const ReadDiscovery = () => {
   const [discovery, setDiscovery] = useState(null)
   const [errors, setErrors] = useState(false)
 
+  // const [newComment, setNewComment] = useState({
+  //   text: '',
+  // })
+
+  // const [comments, setNewComments] = useState([])
+
+  // const onChangeCommentHandler = (event) => {
+  //   setNewComment(event.target.value)
+  // }
+
+  // const onClickCommentHandler = (event) => {
+  //   setNewComments((comments) => [...comments, newComment])
+  // }
+
   const getDiscovery = useCallback(async () => {
     try {
       const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
@@ -68,17 +82,33 @@ const ReadDiscovery = () => {
           <>
             <h1>{discovery.discName}</h1>
             <Col md="6">
-              <img className='w-100' src={discovery.discImage} alt={discovery.discName} />
+              <img className='w-100' src={discovery.discImg} alt={discovery.discName} />
             </Col>
             <Col md="6">
               {/* Description */}
               <h2>Description</h2>
               <p>{discovery.discDesc}</p>
-              <div className='discovery-comments'>
+              <div className="existing-comments">
                 {discovery.comments.map((comment) => (
-                  <h3 key = {comment.id}>{comment.text}</h3>
+                  <div className="comment-container" key = {comment.id}>{comment.text}</div>
                 ))}
               </div>
+              {/* <div className='discovery-comments'>
+                {disccomments.map((text) => (
+                  <div className="comment-container" key = {text}> {text} </div>
+                ))}
+                <div className="comment-flexbox">
+                  <h3 className="comment-text"> Add Comment: </h3>
+                  <textarea
+                    value={newComment}
+                    onChange={onChangeCommentHandler}
+                    className="input-box"
+                  />
+                  <button onClick = {onClickCommentHandler} className = "comment-button">
+                    Submit
+                  </button>
+                </div> 
+              </div> */}
               <hr />
               <div className='discovery-categories'>
                 {discovery.categories.map((category) => (
@@ -89,15 +119,15 @@ const ReadDiscovery = () => {
                 {userIsOwner(discovery) &&
                   <div className="buttons mb-4">
                     <Button variant="danger" onClick={deleteDiscovery}>Delete discovery</Button>
-                    <Link to={`/updatediscovery/${discoveryId}`} className='btn btn-primary'>Edit Discovery</Link>
+                    <Link to={`/discoveries/${discoveryId}/edit`} className='btn btn-primary'>Edit Discovery</Link>
                   </div>
                 }
               </div>
               <div className="buttons mb-6">
                 <form>
                   <label htmlFor="Comment"> Add A Comment </label>
-                  <textarea name="Comment" placeholder='add a comment' value='text'></textarea>
-                  <input type="submit" value='text' className="btn"></input>
+                  <textarea name="Comment" placeholder='add a comment' value=''></textarea>
+                  <input type="submit" value='+' className="btn"></input>
                 </form>
               </div>
               {/* Link back to all discoverys */}

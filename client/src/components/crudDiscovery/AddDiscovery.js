@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import Select from 'react-select'
 import { getToken } from '../auth'
-import cloudinaryimage from '../cloudinaryimage'
 
 import Container from 'react-bootstrap/Container'
+import Cloudinaryimage from '../cloudinaryimage'
 
 const AddDiscovery = () => {
 
@@ -16,14 +16,14 @@ const AddDiscovery = () => {
     discName: '',
     discDesc: '',
     categories: [],
-    discImg: '',
+    discImage: '',
   })
 
   const [errors, setErrors] = useState({
     discName: '',
     discDesc: '',
     categories: [],
-    discImg: '',
+    discImage: '',
   })
 
   const [categoriesMap, setCategoriesMap] = useState([])
@@ -46,13 +46,14 @@ const AddDiscovery = () => {
     console.log(formData)
     event.preventDefault()
     try {
-      const { data } = await axios.post('api/discoveries/', formData, {
+      const { data } = await axios.post('/api/discoveries/', formData, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
       })
       console.log(data)
       navigate('/profile/')
+      // navigate(`/discovery/${data._id}`)
     } catch (err) {
       console.log(err.response.data)
       setErrors(err.response.data)
@@ -65,9 +66,10 @@ const AddDiscovery = () => {
     console.log(formData)
   }
 
-  const handleUploadImage = (file) => {
+  const handleImageUpload = (file) => {
     try {
-      setFormData({ ...formData, discImg: file })
+      setFormData({ ...formData, discImage: file })
+      console.log(file)
     } catch (error) {
       if (error.response.data.errors) setErrors(error.response.data.errors)
     }
@@ -85,9 +87,12 @@ const AddDiscovery = () => {
       <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
       {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
       {/* discImg */}
-      {/* <label htmlFor='discImg'>Image</label> */}
-      {/* <cloudinaryimage value={formData.discImg} name="discImg" onChange={handleUploadImage} />
-      {errors.discImg && <p className='text-danger'>{errors.discImg}</p>} */}
+      <p>Upload an image:</p>
+      <Cloudinaryimage
+        value={formData.discImage}
+        name="image"
+        handleImageUpload={handleImageUpload}
+      />
       {/* categories */}
       <label htmlFor='categories'>categories</label>
       <Select
