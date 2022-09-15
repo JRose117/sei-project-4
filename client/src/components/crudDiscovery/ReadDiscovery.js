@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-import { getPayload, getToken, userIsOwner, getIdFromUser } from '../auth'
+import { getPayload, getToken, userIsOwner, authUser, getIdFromUser } from '../auth'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -17,24 +17,36 @@ const ReadDiscovery = () => {
   const [discovery, setDiscovery] = useState(null)
   const [errors, setErrors] = useState(false)
 
-  // const [newComment, setNewComment] = useState({
-  //   text: '',
-  // })
+  const [formData, setFormData] = useState({
+    text: '',
+  })
 
-  // const [comments, setNewComments] = useState([])
+  const handleCommentSubmit = async (event) => {
+    console.log(formData)
+    try {
+      const { data } = await axios.post('/api/comments/', formData, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      console.log(data)
+      navigate(`/discoveries/${discoveryId}/`)
+    } catch (err) {
+      console.log(err.response.data)
+      setErrors(err.response.data)
+    }
+  }
 
-  // const onChangeCommentHandler = (event) => {
-  //   setNewComment(event.target.value)
-  // }
-
-  // const onClickCommentHandler = (event) => {
-  //   setNewComments((comments) => [...comments, newComment])
-  // }
+  const handleCommentChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value, discovery: parseInt(discoveryId) })
+    console.log(formData)
+  }
 
   const getDiscovery = useCallback(async () => {
     try {
       const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
       setDiscovery(data)
+      console.log(data)
     } catch (err) {
       setErrors(true)
     }
@@ -59,7 +71,7 @@ const ReadDiscovery = () => {
 
   const handleTagIt = async () => {
     try {
-      await axios.post('/api/tag/',
+      await axios.post('/api/tags/',
         {
           discovery: discovery.id,
           tagged: true,
@@ -72,6 +84,21 @@ const ReadDiscovery = () => {
     }
   }
 
+
+  const removeComment = async (event) => {
+    console.log(typeof event.target.name)
+    console.log(typeof `/api/comments/${event.target.name}/`)
+    try {
+      await axios.delete(`/api/comments/${event.target.name}/`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      navigate(`/discoveries/${discoveryId}/`)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   // const tagged = discovery.filter(tagged => discovery.tag === getIdFromUser )
   // console.log(tagged)
   // ! JSX
@@ -80,20 +107,31 @@ const ReadDiscovery = () => {
       <Row>
         {discovery ?
           <>
+            {/* Link back to all discoverys */}
+            <div className="readImage">
+              <img src={discovery.discImage} alt={discovery.discName} />
+            </div>
             <h1>{discovery.discName}</h1>
-            <Col md="6">
-              <img className='w-100' src={discovery.discImg} alt={discovery.discName} />
-            </Col>
-            <Col md="6">
+            <div className="readDesc">
               {/* Description */}
-              <h2>Description</h2>
               <p>{discovery.discDesc}</p>
-              <div className="existing-comments">
-                {discovery.comments.map((comment) => (
-                  <div className="comment-container" key = {comment.id}>{comment.text}</div>
-                ))}
-              </div>
-              {/* <div className='discovery-comments'>
+            </div>
+            <div className="existing-comments">
+              {discovery.comments.map((comment) => (
+                <div className="comment-container" key={comment.id}>
+                  <div className="comment-text">{comment.text}</div>
+                  {console.log(comment)}
+                  <div className="comment-by"> <span> Left by </span> <Link to={`/profile/${comment.owner.id}`}> user </Link> </div>
+                  {userIsOwner(comment) &&
+                    <span>
+                      <label htmlFor="Comment-delete"></label>
+                      <input type="submit" name={comment.id} value="delete comment" className="btn btn-light" onClick={removeComment}></input>
+                    </span>
+                  }
+                </div>
+              ))}
+            </div>
+            {/* <div className='discovery-comments'>
                 {disccomments.map((text) => (
                   <div className="comment-container" key = {text}> {text} </div>
                 ))}
@@ -109,30 +147,39 @@ const ReadDiscovery = () => {
                   </button>
                 </div> 
               </div> */}
-              <hr />
-              <div className='discovery-categories'>
-                {discovery.categories.map((category) => (
-                  <h3 key={category.name}>{category.name}</h3>
-                ))}
-              </div>
-              <div className="buttons mb-4">
-                {userIsOwner(discovery) &&
-                  <div className="buttons mb-4">
-                    <Button variant="danger" onClick={deleteDiscovery}>Delete discovery</Button>
-                    <Link to={`/discoveries/${discoveryId}/edit`} className='btn btn-primary'>Edit Discovery</Link>
-                  </div>
-                }
-              </div>
+            < hr />
+            <div className='readCategories'>
+              {discovery.categories.map((category) => (
+                <div className="readCategorySingle" key={category.name}>{category.name}</div>
+              ))}
+            </div>
+            <div className="buttons mb-4">
+              {userIsOwner(discovery) &&
+                <div className="buttons mb-4">
+                  <Button variant="danger" onClick={deleteDiscovery}>Delete discovery</Button>
+                  <Link to={`/discoveries/${discoveryId}/edit`} className='btn btn-success'>Edit Discovery</Link>
+                </div>
+              }
+            </div>
+            {authUser()
+              &&
               <div className="buttons mb-6">
-                <form>
-                  <label htmlFor="Comment"> Add A Comment </label>
-                  <textarea name="Comment" placeholder='add a comment' value=''></textarea>
-                  <input type="submit" value='+' className="btn"></input>
+                <form className="comment-form" onSubmit={handleCommentSubmit}>
+                  <label htmlFor="Comment">Comment</label>
+                  <textarea name="text" placeholder="Comment" value={formData.text} onChange={handleCommentChange}></textarea>
+                  <input type="submit" value="add comment"className="btn btn-light"></input>
                 </form>
               </div>
-              {/* Link back to all discoverys */}
-              <Link to="/discoveries/" className='btn dark'>Back to all discovery</Link>
-            </Col>
+            }
+            {/* {authUser()
+                &&
+                <div className="buttons mb-6">
+                  <form className="comment-form" onSubmit={handleTagIt}>
+                    <label htmlFor="tag"></label>
+                    <input type="submit" className="btn"  value="tag"></input>
+                  </form>
+                </div>
+              } */}
           </>
           :
           <h2 className="text-center">

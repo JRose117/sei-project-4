@@ -3,10 +3,11 @@ import axios, { Axios } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import Select from 'react-select'
-import { getToken } from '../auth'
+import { getToken, authUser } from '../auth'
 
 import Container from 'react-bootstrap/Container'
 import Cloudinaryimage from '../cloudinaryimage'
+import Redirect from '../redirect'
 
 const AddDiscovery = () => {
 
@@ -52,7 +53,7 @@ const AddDiscovery = () => {
         },
       })
       console.log(data)
-      navigate('/profile/')
+      navigate('/discoveries/')
       // navigate(`/discovery/${data._id}`)
     } catch (err) {
       console.log(err.response.data)
@@ -76,45 +77,56 @@ const AddDiscovery = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>{'Add Discovery'}</h1>
-      {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
-      <label htmlFor='discName'>Name</label>
-      <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
-      {errors.name && <p className='text-danger'>{errors.discName}</p>}
-      {/* discDesc */}
-      <label htmlFor='discDesc'>Description</label>
-      <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
-      {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
-      {/* discImg */}
-      <p>Upload an image:</p>
-      <Cloudinaryimage
-        value={formData.discImage}
-        name="image"
-        handleImageUpload={handleImageUpload}
-      />
-      {/* categories */}
-      <label htmlFor='categories'>categories</label>
-      <Select
-        options={categoriesMap.map((category) => ({
-          id: category.id,
-          value: category.id,
-          label: category.name,
-        }))}
-        isMulti
-        name="categories"
-        onChange={handleMultiEnter}
-      />
-      {errors.categories && <p className='text-danger'>{errors.categories}</p>}
-   
-      {/* <label htmlFor='image'>Image</label>
-      <input type='text' name='image' placeholder='Image' value={formData.discImg} onChange={handleChange} /> */}
-      { errors.discImg && <p className='text-danger'>{errors.discImg}</p> }
-      {/* Non field Errors */}
-      {errors.message && <p className='text-danger'>{errors.message}</p>}
-      {/* Submit */}
-      <input type='submit' value={'addDiscovery'} className='btn dark' />
-    </form>
+    authUser() ?
+      <form onSubmit={handleSubmit}>
+        <h1>{'Add Discovery'}</h1>
+        {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
+        {/* discName */}
+        <div className="discName">
+          <label htmlFor='discName'>Name</label>
+          <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
+          {errors.name && <p className='text-danger'>{errors.discName}</p>}
+        </div>
+        {/* discDesc */}
+        <div className="discName">
+          <label htmlFor='discDesc'>Description</label>
+          <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
+          {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
+        </div>
+        {/* categories */}
+        <div className="discName">
+          <label htmlFor='categories'>categories</label>
+          <Select
+            options={categoriesMap.map((category) => ({
+              id: category.id,
+              value: category.id,
+              label: category.name,
+            }))}
+            isMulti
+            name="categories"
+            onChange={handleMultiEnter}
+          />
+        </div>
+        {/* discImg */}
+        <div className="discName">
+          <p>Upload an image:</p>
+          <Cloudinaryimage
+            value={formData.discImage}
+            name="image"
+            handleImageUpload={handleImageUpload}
+          />
+        </div>
+        {errors.categories && <p className='text-danger'>{errors.categories}</p>}
+        {/* <label htmlFor='image'>Image</label>
+        <input type='text' name='image' placeholder='Image' value={formData.discImg} onChange={handleChange} /> */}
+        {errors.discImage && <p className='text-danger'>{errors.discImage}</p>}
+        {/* Non field Errors */}
+        {errors.message && <p className='text-danger'>{errors.message}</p>}
+        {/* Submit */}
+        <input type='submit' value={'Add'} className='btn btn-success' />
+      </form>
+      :
+      <Redirect />
   )
 }
 

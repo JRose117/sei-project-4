@@ -5,12 +5,12 @@ import Discoveries from './components/discoveries'
 import Homepage from './components/homepage'
 import Login from './components/login'
 import Register from './components/register'
-import Profile from './components/profile'
 import NavBar from './components/navbar'
 import AddDiscovery from './components/crudDiscovery/AddDiscovery'
-import DiscoverySingle from './components/DiscoverySingle'
 import ReadDiscovery from './components/crudDiscovery/ReadDiscovery'
 import UpdateDiscovery from './components/crudDiscovery/UpdateDiscovery'
+import NotFound from './components/NotFound'
+import Profile from './components/profile'
 
 const App = () => {
   useEffect(() => {
@@ -32,9 +32,11 @@ const App = () => {
             <Route path="/discoveries/:discoveryId/" element={<ReadDiscovery />} />
             <Route path="/discoveries/:discoveryId/edit" element={<UpdateDiscovery />} />
             <Route path="/login" element={<Login></Login>}></Route>
+            <Route path="/profile/:profileId" element={<Profile></Profile>}></Route>
             <Route path="/register" element={<Register></Register>}></Route>
             <Route path="/AddDiscovery" element={<AddDiscovery></AddDiscovery>}></Route>
-            <Route path="/profile" element={<Profile></Profile>}></Route>
+            <Route path="/*" element={<NotFound></NotFound>}></Route>
+            <Route path="/" element={<Homepage></Homepage>}></Route>
           </Routes>
         </BrowserRouter>
       </div>

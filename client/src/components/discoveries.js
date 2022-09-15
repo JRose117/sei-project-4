@@ -23,7 +23,7 @@ const Discoveries = () => {
   }, [setDiscoveries])
   return (
     <Container as="main" className='discovery-index text-center'>
-      <h1 className='text-center mb-4'>discovery</h1>
+      <h1 className='text-center mb-4'> See What Others Have Discovered </h1>
       <Row>
         {discoveries.length > 0
           ?
@@ -36,7 +36,7 @@ const Discoveries = () => {
                   <Card>
                     <Card.Img variant='top' src={discImage}></Card.Img>
                     <Card.Body className='bg-light'>
-                      <Card.Title className='text-center mb-0'>{discName} - {discDesc} - {discImage} </Card.Title>
+                      <Card.Title className='text-center mb-0'>{discName} - {discDesc} </Card.Title>
                     </Card.Body>
                   </Card>
                 </Link>

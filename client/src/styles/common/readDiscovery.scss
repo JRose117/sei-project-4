@@ -1,0 +1,66 @@
+.readDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+button.btn.btn-danger {
+  margin-right: 10px;
+}
+
+.readImage {
+  display: flex;
+  justify-content: center;
+}
+
+.readCategorySingle {
+  border: 1px solid black;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+img, svg {
+  vertical-align: middle;
+  max-width: 600px;
+  max-height: 600px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.comment-text {
+    margin-top: 15px;
+    width: 40%;
+    height: 100px;
+    padding: 10px;
+    background-color: #d0e2bc;
+    border-radius: 10px;
+}
+
+form.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 300px;
+  margin: 10px 0px;
+}
+
+input.btn.btn-light {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 250px;
+}
+
+h1{
+  text-align: center;
+}
+
+textarea {
+  margin-bottom: 10px;
+}

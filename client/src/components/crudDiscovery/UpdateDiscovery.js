@@ -3,9 +3,11 @@ import axios, { Axios } from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import React from 'react'
 import Select from 'react-select'
-import { getToken, getIdFromUser } from '../auth'
+import { getToken, getIdFromUser, authUser } from '../auth'
 
 import Container from 'react-bootstrap/Container'
+import Cloudinaryimage from '../cloudinaryimage'
+import Redirect from '../redirect'
 
 const UpdateDiscovery = () => {
 
@@ -19,13 +21,14 @@ const UpdateDiscovery = () => {
     discName: '',
     discDesc: '',
     categories: [],
-    // image
+    discImage: '',
   })
 
   const [errors, setErrors] = useState({
     discName: '',
     discDesc: '',
     categories: [],
+    discImage: '',
   })
 
   const [categoriesMap, setCategoriesMap] = useState([])
@@ -44,11 +47,11 @@ const UpdateDiscovery = () => {
     getData()
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const getDiscoveryData = async () => {
       try {
         const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
-        if (!getIdFromUser(data)) navigate('/')
+        if (!getIdFromUser(data)) navigate('/discoveries')
         setFormData({ ...data, categories: data.categories.map((category) => category.id), discImg: 'sdafdsa.jpeg' })
         console.log('data line 53')
       } catch (err) {
@@ -57,7 +60,7 @@ const UpdateDiscovery = () => {
       }
     }
     getDiscoveryData()
-  },[])
+  }, [])
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value })
@@ -74,7 +77,7 @@ const UpdateDiscovery = () => {
         },
       })
       console.log(data)
-      navigate('/profile/')
+      navigate('/discoveries')
       // navigate(`/discovery/${data._id}`)
     } catch (err) {
       console.log(err.response.data)
@@ -82,42 +85,61 @@ const UpdateDiscovery = () => {
     }
   }
 
+  const handleImageUpload = (url) => {
+    try {
+      setFormData({ ...formData, event_image: url })
+    } catch (error) {
+      if (error.response.data.errors) setErrors(error.response.data.errors)
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>{'Update Discovery'}</h1>
-      {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
-      <label htmlFor='discName'>Name</label>
-      <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
-      {errors.name && <p className='text-danger'>{errors.discName}</p>}
-      {/* discDesc */}
-      <label htmlFor='discDesc'>Description</label>
-      <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
-      {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
-      {/* categories */}
-      <label htmlFor='categories'>categories</label>
-      <Select
-        options={categoriesMap.map((category) => ({
-          id: category.id,
-          value: category.id,
-          label: category.name,
-        }))}
-        isMulti
-        name="categories"
-        onChange={handleMultiEnter}
-      />
-      {errors.categories && <p className='text-danger'>{errors.categories}</p>}
-      {/* Image */}
-      {/* <div><input type="file" onChange={(event)=>{
+    authUser() ?
+      <form onSubmit={handleSubmit}>
+        <h1>{'Update Discovery'}</h1>
+        {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
+        <label htmlFor='discName'>Name</label>
+        <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
+        {errors.name && <p className='text-danger'>{errors.discName}</p>}
+        {/* discDesc */}
+        <label htmlFor='discDesc'>Description</label>
+        <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
+        {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
+        {/* categories */}
+        <label htmlFor='categories'>categories</label>
+        <Select
+          options={categoriesMap.map((category) => ({
+            id: category.id,
+            value: category.id,
+            label: category.name,
+          }))}
+          isMulti
+          name="categories"
+          onChange={handleMultiEnter}
+        />
+
+        {/* discImg */}
+        <p>Upload an image:</p>
+        <Cloudinaryimage
+          value={formData.discImage}
+          name="image"
+          handleImageUpload={handleImageUpload}
+        />
+        {errors.categories && <p className='text-danger'>{errors.categories}</p>}
+        {/* Image */}
+        {/* <div><input type="file" onChange={(event)=>{
         uploadImage(event.target.files)
       }}/></div> */}
-      {/* <label htmlFor='image'>Image</label>
+        {/* <label htmlFor='image'>Image</label>
       <input type='text' name='image' placeholder='Image' value={formData.image} onChange={handleChange} />
       { errors.image && <p className='text-danger'>{errors.image}</p> } */}
-      {/* Non field Errors */}
-      {errors.message && <p className='text-danger'>{errors.message}</p>}
-      {/* Submit */}
-      <input type='submit' value={'addDiscovery'} className='btn dark' />
-    </form>
+        {/* Non field Errors */}
+        {errors.message && <p className='text-danger'>{errors.message}</p>}
+        {/* Submit */}
+        <input type='submit' value={'Update'} className='btn btn-' />
+      </form>
+      :
+      <Redirect />
   )
 }
 
