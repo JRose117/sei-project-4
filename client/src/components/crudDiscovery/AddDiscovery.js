@@ -54,7 +54,6 @@ const AddDiscovery = () => {
       })
       console.log(data)
       navigate('/discoveries/')
-      // navigate(`/discovery/${data._id}`)
     } catch (err) {
       console.log(err.response.data)
       setErrors(err.response.data)
@@ -76,11 +75,11 @@ const AddDiscovery = () => {
     }
   }
 
+
   return (
     authUser() ?
       <form onSubmit={handleSubmit}>
         <h1>{'Add Discovery'}</h1>
-        {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
         {/* discName */}
         <div className="discName">
           <label htmlFor='discName'>Name</label>
@@ -88,13 +87,13 @@ const AddDiscovery = () => {
           {errors.name && <p className='text-danger'>{errors.discName}</p>}
         </div>
         {/* discDesc */}
-        <div className="discName">
+        <div className="discDesc">
           <label htmlFor='discDesc'>Description</label>
           <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
           {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
         </div>
         {/* categories */}
-        <div className="discName">
+        <div className="discCat">
           <label htmlFor='categories'>categories</label>
           <Select
             options={categoriesMap.map((category) => ({
@@ -108,7 +107,7 @@ const AddDiscovery = () => {
           />
         </div>
         {/* discImg */}
-        <div className="discName">
+        <div className="discIm">
           <p>Upload an image:</p>
           <Cloudinaryimage
             value={formData.discImage}
@@ -116,14 +115,14 @@ const AddDiscovery = () => {
             handleImageUpload={handleImageUpload}
           />
         </div>
-        {errors.categories && <p className='text-danger'>{errors.categories}</p>}
+        {/* {errors.categories && <p className='1-text-danger'>{errors.categories}</p>} */}
         {/* <label htmlFor='image'>Image</label>
         <input type='text' name='image' placeholder='Image' value={formData.discImg} onChange={handleChange} /> */}
-        {errors.discImage && <p className='text-danger'>{errors.discImage}</p>}
+        {/* {errors.discImage && <p className='2-text-danger'>{errors.discImage}</p>} */}
         {/* Non field Errors */}
-        {errors.message && <p className='text-danger'>{errors.message}</p>}
+        {/* {errors.message && <p className='3-text-danger'>{errors.message}</p>} */}
         {/* Submit */}
-        <input type='submit' value={'Add'} className='btn btn-success' />
+        <div className="input-button"><input type='submit' value={'Add'} className='btn btn-success' /></div>
       </form>
       :
       <Redirect />

@@ -97,35 +97,43 @@ const UpdateDiscovery = () => {
     authUser() ?
       <form onSubmit={handleSubmit}>
         <h1>{'Update Discovery'}</h1>
-        {errors && <p className='text-danger'>{JSON.stringify(errors.message)}</p>}
-        <label htmlFor='discName'>Name</label>
-        <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
-        {errors.name && <p className='text-danger'>{errors.discName}</p>}
+        {/* {errors && <p className='1-text-danger'>{JSON.stringify(errors.message)}</p>} */}
+        <div className="discName">
+          <label htmlFor='discName'>Name</label>
+          <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
+        </div>
+        {/* {errors.name && <p className='text-danger'>{errors.discName}</p>} */}
         {/* discDesc */}
-        <label htmlFor='discDesc'>Description</label>
-        <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
-        {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
+        <div className="discDesc">
+          <label htmlFor='discDesc'>Description</label>
+          <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
+        </div>
+        {/* {errors.discDesc && <p className='2-text-danger'>{errors.discDesc}</p>} */}
         {/* categories */}
-        <label htmlFor='categories'>categories</label>
-        <Select
-          options={categoriesMap.map((category) => ({
-            id: category.id,
-            value: category.id,
-            label: category.name,
-          }))}
-          isMulti
-          name="categories"
-          onChange={handleMultiEnter}
-        />
+        <div className="discCat">
+          <label htmlFor='categories'>categories</label>
+          <Select
+            options={categoriesMap.map((category) => ({
+              id: category.id,
+              value: category.id,
+              label: category.name,
+            }))}
+            isMulti
+            name="categories"
+            onChange={handleMultiEnter}
+          />
+        </div>
 
         {/* discImg */}
-        <p>Upload an image:</p>
-        <Cloudinaryimage
-          value={formData.discImage}
-          name="image"
-          handleImageUpload={handleImageUpload}
-        />
-        {errors.categories && <p className='text-danger'>{errors.categories}</p>}
+        <div className="discIm">
+          <p>Upload an image:</p>
+          <Cloudinaryimage
+            value={formData.discImage}
+            name="image"
+            handleImageUpload={handleImageUpload}
+          />
+        </div>
+        {/* {errors.categories && <p className='3-text-danger'>{errors.response.data}</p>} */}
         {/* Image */}
         {/* <div><input type="file" onChange={(event)=>{
         uploadImage(event.target.files)
@@ -134,9 +142,9 @@ const UpdateDiscovery = () => {
       <input type='text' name='image' placeholder='Image' value={formData.image} onChange={handleChange} />
       { errors.image && <p className='text-danger'>{errors.image}</p> } */}
         {/* Non field Errors */}
-        {errors.message && <p className='text-danger'>{errors.message}</p>}
+        {errors.message && <p className='4-text-danger'>{errors.message}</p>}
         {/* Submit */}
-        <input type='submit' value={'Update'} className='btn btn-' />
+        <div className="input-button"><input type='submit' value={'Update'} className='btn btn-success' /></div>
       </form>
       :
       <Redirect />

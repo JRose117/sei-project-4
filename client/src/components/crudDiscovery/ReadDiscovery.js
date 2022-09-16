@@ -29,7 +29,6 @@ const ReadDiscovery = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      console.log(data)
       navigate(`/discoveries/${discoveryId}/`)
     } catch (err) {
       console.log(err.response.data)
@@ -50,11 +49,11 @@ const ReadDiscovery = () => {
     } catch (err) {
       setErrors(true)
     }
-  }, [discoveryId])
+  })
 
   useEffect(() => {
     getDiscovery()
-  }, [discoveryId])
+  }, [])
 
   const deleteDiscovery = async () => {
     try {
@@ -87,18 +86,19 @@ const ReadDiscovery = () => {
 
   const removeComment = async (event) => {
     console.log(typeof event.target.name)
-    console.log(typeof `/api/comments/${event.target.name}/`)
+    console.log(typeof `/api/comments/${event.target.value}/`)
     try {
-      await axios.delete(`/api/comments/${event.target.name}/`, {
+      await axios.delete(`/api/comments/${event.target.value}/`, {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      navigate(`/discoveries/${discoveryId}/`)
+      getDiscovery()
     } catch (err) {
       console.log(err)
     }
   }
+
   // const tagged = discovery.filter(tagged => discovery.tag === getIdFromUser )
   // console.log(tagged)
   // ! JSX
@@ -120,13 +120,14 @@ const ReadDiscovery = () => {
               {discovery.comments.map((comment) => (
                 <div className="comment-container" key={comment.id}>
                   <div className="comment-text">{comment.text}</div>
+                  <div className="comment-by">{comment.created_at}</div>
                   {console.log(comment)}
                   <div className="comment-by"> <span> Left by </span> <Link to={`/profile/${comment.owner.id}`}> user </Link> </div>
                   {userIsOwner(comment) &&
-                    <span>
+                    <div className="comment-delete">
                       <label htmlFor="Comment-delete"></label>
-                      <input type="submit" name={comment.id} value="delete comment" className="btn btn-light" onClick={removeComment}></input>
-                    </span>
+                      <button className="btn btn-light" value={comment.id} name="delete" onClick={removeComment}>delete</button>
+                    </div>
                   }
                 </div>
               ))}
@@ -171,7 +172,7 @@ const ReadDiscovery = () => {
                 </form>
               </div>
             }
-            {/* {authUser()
+            {authUser()
                 &&
                 <div className="buttons mb-6">
                   <form className="comment-form" onSubmit={handleTagIt}>
@@ -179,7 +180,7 @@ const ReadDiscovery = () => {
                     <input type="submit" className="btn"  value="tag"></input>
                   </form>
                 </div>
-              } */}
+            }
           </>
           :
           <h2 className="text-center">
