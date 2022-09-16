@@ -29,7 +29,6 @@ const ReadDiscovery = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       })
-      navigate(`/discoveries/${discoveryId}/`)
     } catch (err) {
       console.log(err.response.data)
       setErrors(err.response.data)
@@ -98,6 +97,7 @@ const ReadDiscovery = () => {
       console.log(err)
     }
   }
+  
 
   // const tagged = discovery.filter(tagged => discovery.tag === getIdFromUser )
   // console.log(tagged)
@@ -122,7 +122,7 @@ const ReadDiscovery = () => {
                   <div className="comment-text">{comment.text}</div>
                   <div className="comment-by">{comment.created_at}</div>
                   {console.log(comment)}
-                  <div className="comment-by"> <span> Left by </span> <Link to={`/profile/${comment.owner.id}`}> user </Link> </div>
+                  <div className="comment-by"> <span> Click </span> <Link to={`/profile/${comment.owner.id}`}> here </Link> to reveal the user who left this comment</div>
                   {userIsOwner(comment) &&
                     <div className="comment-delete">
                       <label htmlFor="Comment-delete"></label>

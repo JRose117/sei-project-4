@@ -89,12 +89,12 @@ const AddDiscovery = () => {
         {/* discDesc */}
         <div className="discDesc">
           <label htmlFor='discDesc'>Description</label>
-          <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
+          <textarea name='discDesc' placeholder='Description' value={formData.discDesc} onChange={handleChange}></textarea>
           {errors.discDesc && <p className='text-danger'>{errors.discDesc}</p>}
         </div>
         {/* categories */}
         <div className="discCat">
-          <label htmlFor='categories'>categories</label>
+          <label htmlFor='categories'>Categories</label>
           <Select
             options={categoriesMap.map((category) => ({
               id: category.id,
@@ -108,7 +108,7 @@ const AddDiscovery = () => {
         </div>
         {/* discImg */}
         <div className="discIm">
-          <p>Upload an image:</p>
+          <p>Upload an Image:</p>
           <Cloudinaryimage
             value={formData.discImage}
             name="image"

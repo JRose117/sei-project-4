@@ -21,7 +21,7 @@ const Profile = () => {
   }, [])
   return (
     <div className="profile">
-      {profile ? (<p>User with Username {profile.username} left this comment</p>) : 
+      {profile ? (<p>{profile.username} left this comment</p>) : 
         <>{error ? <h2>Oops something went wrong.</h2> : <h2>Loading...</h2>}</>}
     </div>
   )

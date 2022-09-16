@@ -36,7 +36,7 @@ const Discoveries = () => {
                   <Card>
                     <Card.Img variant='top' src={discImage}></Card.Img>
                     <Card.Body className='bg-light'>
-                      <Card.Title className='text-center mb-0'>{discName} - {discDesc} </Card.Title>
+                      <Card.Title className='text-center mb-0'>{discName} </Card.Title>
                     </Card.Body>
                   </Card>
                 </Link>

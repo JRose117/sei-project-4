@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-input[type="text"], textarea, .css-1s2u09g-control {
+input[name="discName"], input[name="discDesc"], input[name="discCat"], input[name="discIm"], textarea, .css-1s2u09g-control {
   width: calc(100vw*0.4);
   padding: 5px;
   margin: 10px;

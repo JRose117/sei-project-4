@@ -87,7 +87,7 @@ const UpdateDiscovery = () => {
 
   const handleImageUpload = (url) => {
     try {
-      setFormData({ ...formData, event_image: url })
+      setFormData({ ...formData, discImage: url })
     } catch (error) {
       if (error.response.data.errors) setErrors(error.response.data.errors)
     }
@@ -128,7 +128,8 @@ const UpdateDiscovery = () => {
         <div className="discIm">
           <p>Upload an image:</p>
           <Cloudinaryimage
-            value={formData.discImage}
+            className="image"
+            value={formData.discIm}
             name="image"
             handleImageUpload={handleImageUpload}
           />
