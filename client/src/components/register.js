@@ -30,6 +30,7 @@ const Register = () => {
     event.preventDefault()
     try {
       const { data } = await axios.post('/api/auth/register/', formData)
+      console.log('line 33', data)
       navigate('/login')
     } catch (error) {
       console.log(error.response.data)
