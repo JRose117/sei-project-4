@@ -7,7 +7,7 @@ const Cloudinaryimage = ({ value, name, handleImageUpload }) => {
     const formData = new FormData()
     formData.append('file', event.target.files[0])
     formData.append('upload_preset', 'kvairrrj')
-    const { data } = await axios.post('https://api.cloudinary.com/v1_1/dymtwz83p/image/upload', formData)
+    const { data } = await axios.post('https://api.cloudinary.com/v1_1/dymtwz83p/image/upload/', formData)
     handleImageUpload(data.url)
   }
 

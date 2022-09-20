@@ -67,20 +67,20 @@ const ReadDiscovery = () => {
     }
   }
 
-  // const handleTagIt = async () => {
-  //   try {
-  //     await axios.post('/api/tags/',
-  //       {
-  //         discovery: discovery.id,
-  //         tagged: true,
-  //       },
-  //       { headers: { Authorization: `Bearer ${getToken()}` } }
-  //     )
-  //     await getDiscovery()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const handleTagIt = async () => {
+    try {
+      await axios.post('/api/tags/',
+        {
+          discovery: discovery.id,
+          tagged: true,
+        },
+        { headers: { Authorization: `Bearer ${getToken()}` } }
+      )
+      await getDiscovery()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
   const removeComment = async (event) => {
@@ -172,7 +172,7 @@ const ReadDiscovery = () => {
                 </form>
               </div>
             }
-            {/* {authUser()
+            {authUser()
                 &&
                 <div className="buttons mb-6">
                   <form className="comment-form" onSubmit={handleTagIt}>
@@ -180,7 +180,7 @@ const ReadDiscovery = () => {
                     <input type="submit" className="btn"  value="tag"></input>
                   </form>
                 </div>
-            } */}
+            }
           </>
           :
           <h2 className="text-center">

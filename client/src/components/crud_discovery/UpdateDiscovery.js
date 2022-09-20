@@ -40,7 +40,7 @@ const UpdateDiscovery = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get('/api/categories')
+      const { data } = await axios.get('/api/categories/')
       console.log('data - line41', data)
       setCategoriesMap(data)
     }
@@ -52,7 +52,7 @@ const UpdateDiscovery = () => {
       try {
         const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
         if (!getIdFromUser(data)) navigate('/discoveries')
-        setFormData({ ...data, categories: data.categories.map((category) => category.id), discImg: 'sdafdsa.jpeg' })
+        setFormData({ ...data, categories: data.categories.map((category) => category.id) })
       } catch (err) {
         console.log(err)
         setErrors('failed to auto populated')
@@ -121,7 +121,6 @@ const UpdateDiscovery = () => {
             name="categories"
             onChange={handleMultiEnter}
           />
-          {errors.categories && <p className='text-danger'>Please Select Valid Category / Categories</p>}
         </div>
         {/* discImg */}
         <div className="discIm">

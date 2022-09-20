@@ -11,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const { data } = await axios.get(`/api/auth/profile/${profileId}`)
+        const { data } = await axios.get(`/api/auth/profile/${profileId}/`)
         setProfile(data)
       } catch (error) {
         setError(true)
