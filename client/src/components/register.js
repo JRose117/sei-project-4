@@ -29,8 +29,9 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
+      console.log('line 32', data)
       const { data } = await axios.post('/api/auth/register/', formData)
-      console.log('line 33', data)
+      console.log('line 34', data)
       navigate('/login')
     } catch (error) {
       console.log(error.response.data)
