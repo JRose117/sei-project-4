@@ -10,8 +10,8 @@ pylint = "*"
 autopep8 = "*"
 djangorestframework = "*"
 django-on-heroku = "*"
-jwt = "*"
 django-environ = "*"
+pyjwt = "*"
 
 [dev-packages]
 
