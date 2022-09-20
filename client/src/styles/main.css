@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: "Maven Pro", sans-serif;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #e7eedd;
+}
+
+main {
+  flex-grow: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: #6c8844;
+}
+.navbar .nav-link, .navbar span {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9fbb77;
+}
+.hero .hero-container {
+  background-color: #87aa55;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+img.card-img-top {
+  width: 100%;
+  height: 40vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.formPage {
+  margin-top: 50px;
+}
+.formPage .form-container {
+  display: flex;
+  justify-content: center;
+}
+.formPage h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  color: #364422;
+}
+.formPage form {
+  background-color: #9fbb77;
+  padding: 40px;
+  border-radius: 20px;
+  color: black;
+  max-width: 720px;
+}
+.formPage form label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.formPage form input {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  border: 1px solid black;
+  color: rgb(3, 4, 1);
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.formPage form input:last-child {
+  color: #364422;
+}
+
+.error-page {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+.error-page-more-info {
+  margin-top: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+}
+
+h4 {
+  text-align: center;
+}
+
+.homepage-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.homepage-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 1000px;
+}
+.homepage-container h1, .homepage-container h3 {
+  text-align: center;
+}
+
+.homepage-title {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.readDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button.btn.btn-danger {
+  margin-right: 10px;
+}
+
+.readImage {
+  display: flex;
+  justify-content: center;
+}
+
+.readCategorySingle {
+  border: 1px solid black;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+img, svg {
+  vertical-align: middle;
+  max-width: 600px;
+  max-height: 600px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.comment-text {
+  margin-top: 15px;
+  width: 40%;
+  height: 100px;
+  padding: 10px;
+  background-color: #d0e2bc;
+  border-radius: 10px;
+}
+
+form.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 300px;
+  margin: 10px 0px;
+}
+
+input.btn.btn-light {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 250px;
+}
+
+h1 {
+  text-align: center;
+}
+
+textarea {
+  margin-bottom: 10px;
+}
+
+.discName, .discDesc, .discCat, .discIm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[name=discName], input[name=discDesc], input[name=discCat], input[name=discIm], textarea, .css-1s2u09g-control, input.btn.btn-success {
+  width: 40vw;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+
+.input-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+img {
+  border: solid 0.5px;
+}/*# sourceMappingURL=main.css.map */
