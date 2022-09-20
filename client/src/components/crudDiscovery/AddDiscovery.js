@@ -55,8 +55,8 @@ const AddDiscovery = () => {
       console.log(data)
       navigate('/discoveries/')
     } catch (err) {
-      console.log(err.response.data)
-      setErrors(err.response.data)
+      console.log(err.response.data.detail)
+      setErrors(err.response.data.detail)
     }
   }
 
@@ -84,7 +84,7 @@ const AddDiscovery = () => {
         <div className="discName">
           <label htmlFor='discName'>Name</label>
           <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
-          {errors.name && <p className='text-danger'>{errors.discName}</p>}
+          {errors.discName && <p className='text-danger'>{errors.discName}</p>}
         </div>
         {/* discDesc */}
         <div className="discDesc">
@@ -105,6 +105,7 @@ const AddDiscovery = () => {
             name="categories"
             onChange={handleMultiEnter}
           />
+          {errors.categories && <p className='text-danger'>{errors.categories}</p>}
         </div>
         {/* discImg */}
         <div className="discIm">
@@ -114,13 +115,12 @@ const AddDiscovery = () => {
             name="image"
             handleImageUpload={handleImageUpload}
           />
+          {errors.discImage && <p className='text-danger'>{errors.discImage}</p>}
         </div>
-        {/* {errors.categories && <p className='1-text-danger'>{errors.categories}</p>} */}
+
         {/* <label htmlFor='image'>Image</label>
         <input type='text' name='image' placeholder='Image' value={formData.discImg} onChange={handleChange} /> */}
-        {/* {errors.discImage && <p className='2-text-danger'>{errors.discImage}</p>} */}
         {/* Non field Errors */}
-        {/* {errors.message && <p className='3-text-danger'>{errors.message}</p>} */}
         {/* Submit */}
         <div className="input-button"><input type='submit' value={'Add'} className='btn btn-success' /></div>
       </form>

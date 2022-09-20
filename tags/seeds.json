@@ -3,12 +3,9 @@
   "model": "tags.tag",
   "pk": 1,
   "fields": {
-    "tagged": true,
-    "created_at": "2022-09-10T16:40:16.956Z",
-    "discoveries": [
-      2,
-      4
-    ]
+    "discovery": 1,
+    "created_at": "2022-09-19T18:32:13.694Z",
+    "owner": 1
   }
 }
 ]

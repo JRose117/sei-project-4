@@ -1,0 +1,114 @@
+[
+{
+  "model": "categories.category",
+  "pk": 1,
+  "fields": {
+    "name": "Books 📖"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 2,
+  "fields": {
+    "name": "Comedy 😂"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 3,
+  "fields": {
+    "name": "Experiences 💃"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 4,
+  "fields": {
+    "name": "Film 🎬"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 5,
+  "fields": {
+    "name": "Food 🍲"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 6,
+  "fields": {
+    "name": "Games 👾"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 7,
+  "fields": {
+    "name": "Music 🎵"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 8,
+  "fields": {
+    "name": "News 📰"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 9,
+  "fields": {
+    "name": "Podcasts 🎤"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 10,
+  "fields": {
+    "name": "Products 🎁"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 11,
+  "fields": {
+    "name": "Sport 🏊‍♀️"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 12,
+  "fields": {
+    "name": "Tech 📱"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 13,
+  "fields": {
+    "name": "Theatre 🎭"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 14,
+  "fields": {
+    "name": "Travel 🌎"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 15,
+  "fields": {
+    "name": "Television 📺"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 16,
+  "fields": {
+    "name": "Other"
+  }
+}
+]

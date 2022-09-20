@@ -31,8 +31,9 @@ const Register = () => {
     try {
       const { data } = await axios.post('/api/auth/register/', formData)
       navigate('/login')
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log(error.response.data)
+      setError(error.response.data)
     }
   }
   
@@ -43,8 +44,8 @@ const Register = () => {
           <form onSubmit={handleSubmit}>
             <h1>Register</h1>
             {/* username */}
-            <label htmlFor="username">username</label>
-            <input onChange={handleChange} type="text" name="username" placeholder="username" value={formData.username} />
+            <label htmlFor="username">Username</label>
+            <input onChange={handleChange} type="text" name="username" placeholder="Username" value={formData.username} />
             {/* Email */}
             <label htmlFor="email">Email</label>
             <input onChange={handleChange} type="email" name="email" placeholder='Email' value={formData.email} />
@@ -55,7 +56,10 @@ const Register = () => {
             <label htmlFor="password_confirmation">Confirm Password</label>
             <input onChange={handleChange} type="password" name="password_confirmation" placeholder='Confirm Password' value={formData.confirmedPassword} />
             {/* Error Message */}
-            { error && <p>{error}</p>}
+            { error.email && <p>{error.email[0]}</p>}
+            { error.username && <p>{error.username[0]}</p>}
+            { error.password && <p>{error.password[0]}</p>}
+            { error.password_confirmation && <p>{error.password_confirmation[0]}</p>}
             {/* Submit */}
             <input type="submit" value="Register" className='btn w-100'/>
           </form>

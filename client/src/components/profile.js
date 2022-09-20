@@ -22,7 +22,7 @@ const Profile = () => {
   return (
     <div className="profile">
       {profile ? (<p>{profile.username} left this comment</p>) : 
-        <>{error ? <h2>Oops something went wrong.</h2> : <h2>Loading...</h2>}</>}
+        <>{error ? <h2> Something went wrong.</h2> : <h2>Loading...</h2>}</>}
     </div>
   )
 }

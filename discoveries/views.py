@@ -34,7 +34,7 @@ class DiscoveryDetailView(APIView):
         try:
             return Discovery.objects.get(pk=pk)
         except Discovery.DoesNotExist:
-            raise NotFound(detail="🆘 Discovery not found!")
+            raise NotFound(detail="Discovery not found!")
             
     def get(self, _request, pk):
         discovery = self.get_discovery(pk=pk) 

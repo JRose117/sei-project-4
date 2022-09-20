@@ -25,10 +25,10 @@ const UpdateDiscovery = () => {
   })
 
   const [errors, setErrors] = useState({
-    discName: '',
-    discDesc: '',
-    categories: [],
-    discImage: '',
+    discName: {},
+    discDesc: {},
+    categories: {},
+    discImage: {},
   })
 
   const [categoriesMap, setCategoriesMap] = useState([])
@@ -53,7 +53,6 @@ const UpdateDiscovery = () => {
         const { data } = await axios.get(`/api/discoveries/${discoveryId}/`)
         if (!getIdFromUser(data)) navigate('/discoveries')
         setFormData({ ...data, categories: data.categories.map((category) => category.id), discImg: 'sdafdsa.jpeg' })
-        console.log('data line 53')
       } catch (err) {
         console.log(err)
         setErrors('failed to auto populated')
@@ -79,9 +78,8 @@ const UpdateDiscovery = () => {
       console.log(data)
       navigate('/discoveries')
       // navigate(`/discovery/${data._id}`)
-    } catch (err) {
-      console.log(err.response.data)
-      setErrors(err.response.data)
+    } catch (error) {
+      if (error.response.data.errors) setErrors(error.response.data.errors)
     }
   }
 
@@ -97,16 +95,17 @@ const UpdateDiscovery = () => {
     authUser() ?
       <form onSubmit={handleSubmit}>
         <h1>{'Update Discovery'}</h1>
-        {/* {errors && <p className='1-text-danger'>{JSON.stringify(errors.message)}</p>} */}
         <div className="discName">
           <label htmlFor='discName'>Name</label>
           <input type='text' name='discName' placeholder='Name' value={formData.discName} onChange={handleChange} />
+          {errors.discName && <p className='text-danger'>Please Enter A Valid Discovery Name</p>}
         </div>
-        {/* {errors.name && <p className='text-danger'>{errors.discName}</p>} */}
         {/* discDesc */}
         <div className="discDesc">
           <label htmlFor='discDesc'>Description</label>
           <textarea name='discDesc' placeholder='description' value={formData.discDesc} onChange={handleChange}></textarea>
+          {errors.discDesc && <p className='text-danger'>Please Enter A Valid Description</p>}
+
         </div>
         {/* {errors.discDesc && <p className='2-text-danger'>{errors.discDesc}</p>} */}
         {/* categories */}
@@ -122,8 +121,8 @@ const UpdateDiscovery = () => {
             name="categories"
             onChange={handleMultiEnter}
           />
+          {errors.categories && <p className='text-danger'>Please Select Valid Category / Categories</p>}
         </div>
-
         {/* discImg */}
         <div className="discIm">
           <p>Upload an image:</p>
@@ -133,6 +132,7 @@ const UpdateDiscovery = () => {
             name="image"
             handleImageUpload={handleImageUpload}
           />
+          {errors.discImage && <p className='text-danger'> Please Upload A Valid Image </p>}
         </div>
         {/* {errors.categories && <p className='3-text-danger'>{errors.response.data}</p>} */}
         {/* Image */}
@@ -143,7 +143,6 @@ const UpdateDiscovery = () => {
       <input type='text' name='image' placeholder='Image' value={formData.image} onChange={handleChange} />
       { errors.image && <p className='text-danger'>{errors.image}</p> } */}
         {/* Non field Errors */}
-        {errors.message && <p className='4-text-danger'>{errors.message}</p>}
         {/* Submit */}
         <div className="input-button"><input type='submit' value={'Update'} className='btn btn-success' /></div>
       </form>

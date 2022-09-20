@@ -3,36 +3,14 @@
   "model": "discoveries.discovery",
   "pk": 1,
   "fields": {
-    "rec_name": "Disc 1",
-    "rec_location": "Disc 1",
-    "rec_image": "Disc 1 Image"
-  }
-},
-{
-  "model": "discoveries.discovery",
-  "pk": 2,
-  "fields": {
-    "rec_name": "Disc 2",
-    "rec_location": "Disc 2",
-    "rec_image": "Disc 2 Image"
-  }
-},
-{
-  "model": "discoveries.discovery",
-  "pk": 3,
-  "fields": {
-    "rec_name": "Disc 3",
-    "rec_location": "Disc 3",
-    "rec_image": "Disc 3 Image"
-  }
-},
-{
-  "model": "discoveries.discovery",
-  "pk": 4,
-  "fields": {
-    "rec_name": "Disc 4",
-    "rec_location": "Disc 4",
-    "rec_image": "Disc 4 Image"
+    "discName": "The Whale",
+    "discDesc": "Brendan Fraser makes his Hollywood comeback as a father trying to reconnect with his daughter",
+    "discImage": "http://res.cloudinary.com/dymtwz83p/image/upload/v1663610996/xkb2hmi8dr6vweixx4tp.jpg",
+    "created_at": "2022-09-19T18:09:59.114Z",
+    "owner": 1,
+    "categories": [
+      4
+    ]
   }
 }
 ]
