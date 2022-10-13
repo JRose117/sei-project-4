@@ -80,11 +80,11 @@ To do this, I created my discovery model which eventually would allow the user t
 
 ![](./ReadMe-Images/6.png)
 
-I added my URL paths
+I added my URL paths:
 
 ![](./ReadMe-Images/7.png)
 
-And created my Discovery List and Detail Views in views.py
+And created my Discovery List and Detail Views in views.py:
 
 ![](./ReadMe-Images/8.png)
 ![](./ReadMe-Images/9.png)
@@ -94,13 +94,13 @@ Once I was happy that my back-end worked, I created my front end. My JWT_Auth al
 
 The first additional feature I added was a ‘categories’ feature which allowed users to add what type of ‘discovery’ they were adding. Categories were a many-to-many relationship and meant each discovery could have multiple categories. I also set up my ‘categories’ to have a drop down menu with preselected options. 
 
-This meant creating categories in my backend
+This meant creating categories in my backend.
 
 I created a model like above:
 
 ![](./ReadMe-Images/10.png)
 
-And my views
+And my views:
 
 ![](./ReadMe-Images/11.png)
 
@@ -146,7 +146,7 @@ export const getPayload = () => {
 I also knew that my axios request would need to look like:
  await axios.delete(`/api/comments/comment.id/`)
 
-To access the comment.id, I made the value of the delete button comment.id, and so made the axios request 
+To access the comment.id, I made the value of the delete button comment.id, and so made the axios request: 
 
  await axios.delete(`/api/comments/event.target.value/`)
 
