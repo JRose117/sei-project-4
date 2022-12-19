@@ -191,4 +191,5 @@ const ReadDiscovery = () => {
     </Container>
   )
 }
+
 export default ReadDiscovery
